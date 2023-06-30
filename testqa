@@ -1,0 +1,64 @@
+public void TC1_VerifyLoginWithValidCredentials() {
+    // Given
+    WebUiBuiltInKeywords.openBrowser('');
+    WebUiBuiltInKeywords.navigateToUrl('https://katalon-demo-cura.herokuapp.com/');
+
+    // When
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/i_CURA Healthcare_fa fa-bars'));
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/a_Login'));
+
+    TestObject loginPageUsername = WebUiBuiltInKeywords.findWebElement(By.id('username'));
+    WebUiBuiltInKeywords.setText(loginPageUsername, 'John Doe');
+
+    TestObject loginPagePassword = WebUiBuiltInKeywords.findWebElement(By.id('password'));
+    WebUiBuiltInKeywords.setEncryptedText(loginPagePassword, 'g3/DOGG74jC3Flrr3yH+3D/yKbOqqUNM');
+
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/button_Login'));
+
+    // Then
+    WebUiBuiltInKeywords.verifyTextPresent('Dashboard', 'Dashboard');
+}
+
+public void TC2_VerifyLoginWithInvalidCredentials() {
+    // Given
+    WebUiBuiltInKeywords.openBrowser('');
+    WebUiBuiltInKeywords.navigateToUrl('https://katalon-demo-cura.herokuapp.com/');
+
+    // When
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/i_CURA Healthcare_fa fa-bars'));
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/a_Login'));
+
+    TestObject loginPageUsername = WebUiBuiltInKeywords.findWebElement(By.id('username'));
+    WebUiBuiltInKeywords.setText(loginPageUsername, 'invalid');
+
+    TestObject loginPagePassword = WebUiBuiltInKeywords.findWebElement(By.id('password'));
+    WebUiBuiltInKeywords.setEncryptedText(loginPagePassword, 'invalid');
+
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/button_Login'));
+
+    // Then
+    WebUiBuiltInKeywords.verifyTextPresent('Invalid username or password', 'Invalid username or password');
+}
+
+public void TC3_VerifyLogoutAfterLogin() {
+    // Given
+    WebUiBuiltInKeywords.openBrowser('');
+    WebUiBuiltInKeywords.navigateToUrl('https://katalon-demo-cura.herokuapp.com/');
+
+    // When
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/i_CURA Healthcare_fa fa-bars'));
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/a_Login'));
+
+    TestObject loginPageUsername = WebUiBuiltInKeywords.findWebElement(By.id('username'));
+    WebUiBuiltInKeywords.setText(loginPageUsername, 'John Doe');
+
+    TestObject loginPagePassword = WebUiBuiltInKeywords.findWebElement(By.id('password'));
+    WebUiBuiltInKeywords.setEncryptedText(loginPagePassword, 'g3/DOGG74jC3Flrr3yH+3D/yKbOqqUNM');
+
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/button_Login'));
+
+    // Then
+    WebUiBuiltInKeywords.click(findTestObject('Object Repository/Page_CURA Healthcare Service/a_Logout'));
+
+    WebUiBuiltInKeywords.verifyTextPresent('CURA Healthcare Service', 'CURA Healthcare Service');
+}
